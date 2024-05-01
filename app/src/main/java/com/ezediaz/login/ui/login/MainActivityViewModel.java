@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ezediaz.login.model.Usuario;
@@ -14,10 +15,25 @@ import com.ezediaz.login.request.ApiClient;
 import com.ezediaz.login.ui.registro.RegistroActivity;
 
 public class MainActivityViewModel extends AndroidViewModel {
+    private MutableLiveData<String> mEmail;
+    private MutableLiveData<String> mPassword;
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
     }
 
+    public LiveData<String> getMEmail(){
+        if(mEmail == null){
+            mEmail = new MutableLiveData<>();
+        }
+        return mEmail;
+    }
+
+    public LiveData<String> getMPassword(){
+        if(mPassword == null){
+            mPassword = new MutableLiveData<>();
+        }
+        return mPassword;
+    }
     public void logearse(String email, String password) {
         Usuario usuario = ApiClient.login(getApplication().getApplicationContext(), email, password);
         if (usuario != null) {
@@ -27,6 +43,7 @@ public class MainActivityViewModel extends AndroidViewModel {
             getApplication().startActivity(intent);
         } else {
             Toast.makeText(getApplication(), "Email o contraseña incorrecta", Toast.LENGTH_LONG).show();
+
         }
     }
 

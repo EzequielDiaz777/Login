@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
                 String email = binding.etEmail.getText().toString();
                 String password = binding.etPassword.getText().toString();
                 vm.logearse(email, password);
+                binding.etEmail.setText("");
+                binding.etPassword.setText("");
             }
         });
         binding.btnRegistrarse.setOnClickListener(new View.OnClickListener() {
